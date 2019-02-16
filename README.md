@@ -1,24 +1,11 @@
-# README
+# DoubleTime
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### If I had more time..
 
-Things you may want to cover:
+I would figure out the best way to namespace the api if 
 
-* Ruby version
 
-* System dependencies
+### Boring Stuff
 
-* Configuration
+* Ruby version: 2.3.7
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

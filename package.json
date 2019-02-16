@@ -1,0 +1,18 @@
+{
+  "name": "double_time",
+  "version": "1.0.0",
+  "description": "MakeShift Code Challenge",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'",
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

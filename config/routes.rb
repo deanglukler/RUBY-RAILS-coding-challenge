@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  post 'authenticate', to: 'authentication#authenticate'
+  namespace :api do
+    post 'authenticate', to: 'authentication#authenticate'
+
+    resources :users, only: [:index]
+  end
 end
