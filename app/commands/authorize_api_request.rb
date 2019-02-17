@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # guide: https://www.pluralsight.com/guides/token-based-authentication-with-ruby-on-rails-5-api
 class AuthorizeApiRequest
   prepend SimpleCommand
@@ -29,6 +31,7 @@ class AuthorizeApiRequest
     else
       errors.add(:token, 'Missing token')
     end
+
     nil
   end
 end
