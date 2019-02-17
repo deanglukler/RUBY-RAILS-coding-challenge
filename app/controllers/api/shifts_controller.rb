@@ -47,9 +47,6 @@ module Api
 
     def employee_update
       shift = Shift.find(params[:id])
-      puts "HHEERRREEE"
-      puts shift.employee_id
-      puts @current_user.id
       if shift.employee_id == @current_user.id
         if shift.update_attributes(employee_shift_params)
           render json: { apiOk: true, msg: 'Shift Updated', data: shift },
