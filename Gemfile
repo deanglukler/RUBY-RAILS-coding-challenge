@@ -6,6 +6,7 @@ ruby '2.3.7'
 gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
+gem 'foreman', '~> 0.82.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record

@@ -10,7 +10,8 @@
   "scripts": {
     "postinstall": "npm run build && npm run deploy && echo 'Client built!'",
     "build": "cd client && npm install && npm run build && cd ..",
-    "deploy": "cp -a client/build/. public/"
+    "deploy": "cp -a client/build/. public/",
+    "start:dev": "foreman start -f Procfile.dev"
   },
   "keywords": [],
   "author": "",
