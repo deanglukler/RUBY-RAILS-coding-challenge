@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import axios from 'axios';
 
 import authenticate from '../userauth/authenticate';
+import Loading from './Loading'
 
 export default class Login extends PureComponent {
   state = {
@@ -10,6 +11,7 @@ export default class Login extends PureComponent {
     schedulers: [],
     employees: [],
     users: [],
+    loading: true,
   };
 
   constructor(props) {
@@ -37,7 +39,8 @@ export default class Login extends PureComponent {
     this.setState({
       schedulers,
       employees,
-      users: res.data
+      users: res.data,
+      loading: false,
     });
   }
 
@@ -91,8 +94,10 @@ export default class Login extends PureComponent {
   }
 
   render() {
+    const { loading } = this.state
     return (
       <div className="w-full max-w-xs">
+        <Loading loading={loading} />
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="mb-4">Sign In</h2>
           <div className="mb-4">

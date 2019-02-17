@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import './App.css';
 import Login from './components/Login';
 import Shifts from './components/Shifts';
 import Loading from './components/Loading';
 import getUser from './userauth/getuser';
+import * as token from './utils/token'
 
 class App extends Component {
   state = {
@@ -23,33 +23,28 @@ class App extends Component {
   // keep it simple man
   async componentDidMount() {
     // Retrieve the object from storage
-    const token = localStorage.getItem('tokenDT');
-    if (!token) {
-      setTimeout(() => {
-        this.setState({
-          loading: false,
-        });
-      }, 800);
+    const t = token.get();
+    if (!t) {
       return null;
     }
-    this.getUser(token);
+    this.getUser(t);
   }
 
-  handleLogin(token) {
+  handleLogin(t) {
     // Put the object into storage
-    localStorage.setItem('tokenDT', token);
-    this.getUser(token);
+    token.set(t)
+    this.getUser(t);
   }
 
-  async getUser(token) {
+  async getUser(t) {
     this.setState({
       loading: true,
     });
-    const res = await getUser(token);
+    const res = await getUser(t);
 
     if (!res.apiOk) {
       console.log('Something is broken here');
-      this.clearToken();
+      token.clear()
       return null;
     }
     // then we get the user and set it to state
@@ -60,18 +55,18 @@ class App extends Component {
   }
 
   handleSignOut() {
-    this.clearToken();
+    token.clear();
     this.setState({
       user: null,
     });
   }
 
-  clearToken() {
-    localStorage.removeItem('tokenDT');
-  }
-
   renderContent() {
-    return this.state.user ? <Shifts /> : <Login onLogin={this.handleLogin} />;
+    return this.state.user ? (
+      <Shifts user={this.state.user} />
+    ) : (
+      <Login onLogin={this.handleLogin} />
+    );
   }
 
   render() {

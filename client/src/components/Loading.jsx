@@ -18,7 +18,7 @@ export default class Loading extends PureComponent {
           show: false,
           fade: false,
         });
-      }, 1000);
+      }, 500);
     }
     if (loading && !wasLoading) {
       this.setState({

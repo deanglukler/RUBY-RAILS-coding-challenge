@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'date'
+
+now = DateTime.now.strftime('%s').to_i # "1384526946" (seconds)
+shift_start = now + 604800 # one week ahead
+shift_end = shift_start + 1800 # half hour ahead
+HH = 1800
+H = HH * 2
 
 User.destroy_all
-
 User.create([
               {
                 name: 'Dean Glueckler',
@@ -36,3 +35,21 @@ User.create([
                 password: 'password'
               }
             ])
+
+Shift.destroy_all
+Shift.create([
+               {
+                 user_id: 1,
+                 employee_id: 3,
+                 start: shift_start,
+                 end: shift_end,
+                 confirmed: false,
+               },
+               {
+                 user_id: 1,
+                 employee_id: 3,
+                 start: shift_start + H,
+                 end: shift_end + H + HH,
+                 confirmed: false
+               }
+             ])
