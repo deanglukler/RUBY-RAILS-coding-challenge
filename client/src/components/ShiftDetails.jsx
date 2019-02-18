@@ -9,7 +9,16 @@ export default class ShiftDetails extends PureComponent {
   constructor(props) {
     super(props);
 
-    const shift = { ...this.props.shift };
+    const WEEK = Date.now() / 1000 + 604800;
+    const firstEmployee = this.props.users.find(({ role }) => role === 2);
+    const shift = this.props.create
+      ? {
+          start: WEEK,
+          end: WEEK + 3600 * 4,
+          employee_id: firstEmployee && firstEmployee.id,
+        }
+      : { ...this.props.shift };
+
     this.state = {
       initShift: shift,
       nxtShift: shift,
@@ -22,6 +31,8 @@ export default class ShiftDetails extends PureComponent {
     this.handleShiftLenOnChange = this.handleShiftLenOnChange.bind(this);
     this.handleTimeInputOnChange = this.handleTimeInputOnChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
+    this.handleSelectEmployee = this.handleSelectEmployee.bind(this);
   }
 
   handleClose() {
@@ -29,8 +40,8 @@ export default class ShiftDetails extends PureComponent {
   }
 
   handleDateOnChange(ts) {
-    const { nxtShift } = this.state
-    const shiftLen = nxtShift.end - nxtShift.start
+    const { nxtShift } = this.state;
+    const shiftLen = nxtShift.end - nxtShift.start;
     this.setState({
       nxtShift: {
         ...this.state.nxtShift,
@@ -43,7 +54,7 @@ export default class ShiftDetails extends PureComponent {
   handleShiftLenOnChange(e) {
     const hrs = parseInt(e.target.value);
     const secs = hrs * 3600;
-    this.updateShiftLengthData(secs)
+    this.updateShiftLengthData(secs);
   }
 
   handleTimeInputOnChange(e) {
@@ -78,6 +89,15 @@ export default class ShiftDetails extends PureComponent {
     });
   }
 
+  handleSelectEmployee(id) {
+    this.setState({
+      nxtShift: {
+        ...this.state.nxtShift,
+        employee_id: id,
+      },
+    });
+  }
+
   async handleSave() {
     const { nxtShift } = this.state;
     const data = await api.updateShift({
@@ -85,7 +105,22 @@ export default class ShiftDetails extends PureComponent {
       shiftId: nxtShift.id,
       data: nxtShift,
     });
+    this.handleApiRes(data)
+  }
+
+  async handleCreate() {
+    const { nxtShift } = this.state;
+    const data = await api.createShift({
+      token: token.get(),
+      data: nxtShift,
+    });
+    this.handleApiRes(data)
+  }
+  
+  handleApiRes(data) {
     if (data.apiOk) {
+      this.props.onSuccess();
+      this.handleClose();
       return;
     }
     this.setState({
@@ -93,14 +128,57 @@ export default class ShiftDetails extends PureComponent {
     });
   }
 
+  renderEmployeeList() {
+    const { users } = this.props;
+    const { employee_id } = this.state.nxtShift;
+    return (
+      <div className="mb-1">
+        <div className="font-semibold mb-1">Employee:</div>
+        {users
+          .filter(({ role }) => role === 2)
+          .map(({ name, id, email }, i) => {
+            const isSelected = id === employee_id;
+            return (
+              <div
+                key={email}
+                onClick={() => {
+                  this.handleSelectEmployee(id);
+                }}
+                style={{ transition: 'all 100ms' }}
+                className={`cursor-pointer py-1 hover:bg-grey-lighter rounded ${isSelected &&
+                  'py-2 bg-grey-lighter'}`}
+              >
+                <div className="flex items-center">
+                  <img
+                    className="w-10 h-10 rounded-full mr-4"
+                    src={`https://randomuser.me/api/portraits/men/${50 +
+                      i}.jpg`}
+                    alt="Avatar"
+                  />
+                  <div className="text-sm">
+                    <p
+                      className={`text-black leading-none ${isSelected &&
+                        'font-semibold'}`}
+                    >
+                      {name}
+                    </p>
+                    <p className="text-grey-dark">Employee</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    );
+  }
+
   render() {
-    const { shift, users } = this.props;
-    if (!shift) return null;
-    const { employee_id } = shift;
+    const { users, create } = this.props;
     const { nxtShift, timeInputVal } = this.state;
+    const { employee_id } = nxtShift;
 
     return (
-      <div className="absolute pin bg-grey-light flex justify-center items-center">
+      <div className="fixed pin bg-grey-light flex justify-center items-center">
         <button
           onClick={this.handleClose}
           className="bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 mr-2 mt-2 border border-grey-light rounded shadow fixed pin-t pin-r"
@@ -110,6 +188,7 @@ export default class ShiftDetails extends PureComponent {
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-grey-lightest">
           <div className="p-8">
             <div className="pb-4">
+              {create && this.renderEmployeeList()}
               <div className="font-bold text-xl mb-2">
                 {usr.getNameById(employee_id, users)}
               </div>
@@ -162,9 +241,16 @@ export default class ShiftDetails extends PureComponent {
             <button
               className="bg-blue hover:bg-blue-dark text-white font-bold w-full py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
-              onClick={this.handleSave}
+              onClick={create ? this.handleCreate : this.handleSave}
             >
-              Save
+              {create ? 'create' : 'save'}
+            </button>
+            <button
+              className="bg-grey-lighter hover:bg-grey font-bold w-full py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={this.handleClose}
+            >
+              cancel
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export default async token => {
   const headers = {
@@ -7,9 +7,9 @@ export default async token => {
   };
 
   try {
-    const res = await axios.get('/api/me', { headers })
-    return res.data
-  } catch {
-    return null
+    const res = await axios.get('/api/me', { headers });
+    return res.data;
+  } catch (err) {
+    return err.response.data;
   }
-}
+};

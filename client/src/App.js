@@ -25,6 +25,9 @@ class App extends Component {
     // Retrieve the object from storage
     const t = token.get();
     if (!t) {
+      this.setState({
+        loading: false,
+      })
       return null;
     }
     this.getUser(t);
@@ -42,14 +45,17 @@ class App extends Component {
     });
     const res = await getUser(t);
 
+    this.setState({
+      loading: false,
+    });
+
     if (!res.apiOk) {
-      console.log('Something is broken here');
+      console.log('Something\'s is broken here');
       token.clear()
       return null;
     }
     // then we get the user and set it to state
     this.setState({
-      loading: false,
       user: res.data,
     });
   }
@@ -72,7 +78,7 @@ class App extends Component {
   render() {
     const { loading, user } = this.state;
     return (
-      <div className="flex w-screen h-screen justify-center items-center bg-grey-lighter">
+      <div style={{ padding: '4em 0' }} className="flex w-screen min-h-screen justify-center items-center bg-grey-lighter">
         {user && (
           <button
             onClick={this.handleSignOut}
@@ -81,9 +87,9 @@ class App extends Component {
             sign out
           </button>
         )}
-        <p className="absolute pin-b pin-r p-5 text-grey-dark">DoubleTime</p>
+        <p className="fixed pin-b pin-r p-5 text-grey-dark">DoubleTime</p>
         <Loading loading={loading} />
-        {!loading && this.renderContent()}
+        {this.renderContent()}
       </div>
     );
   }

@@ -116,7 +116,7 @@ export default class Login extends PureComponent {
               value={this.state.email}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label
               className="block text-grey-darker text-sm font-bold mb-2"
               htmlFor="password"

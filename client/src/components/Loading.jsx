@@ -2,28 +2,27 @@ import React, { PureComponent } from 'react';
 
 export default class Loading extends PureComponent {
   state = {
-    show: true,
+    show: this.props.loading,
     fade: false,
   };
 
   componentDidUpdate(prevProps) {
-    const loading = this.props.loading
-    const wasLoading = prevProps.loading
+    const loading = this.props.loading;
+    const wasLoading = prevProps.loading;
+    const show = this.state.show;
+    if (loading && !show) {
+      this.setState({ show: true });
+    }
     if (!loading && wasLoading) {
-      this.setState({
-        fade: true,
-      });
+      this.setState({ fade: true });
       setTimeout(() => {
-        this.setState({
-          show: false,
-          fade: false,
-        });
-      }, 500);
+        this.setState({ show: false });
+      }, 800);
     }
     if (loading && !wasLoading) {
       this.setState({
         show: true,
-        fade: false,
+        fade: true,
       });
     }
   }
@@ -34,12 +33,17 @@ export default class Loading extends PureComponent {
       show && (
         <div
           style={{
-            transition: 'opacity 700ms ease',
+            transition: 'opacity 200ms ease',
             opacity: `${fade ? 0 : 1}`,
           }}
-          className="bg-grey-lighter absolute pin flex justify-center items-center z-10"
+          className="bg-grey-lighter fixed pin flex justify-center items-center z-10"
         >
-          <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          <div className="lds-ellipsis">
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
         </div>
       )
     );
