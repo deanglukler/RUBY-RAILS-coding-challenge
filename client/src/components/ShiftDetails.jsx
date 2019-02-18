@@ -151,7 +151,7 @@ export default class ShiftDetails extends PureComponent {
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 rounded-full mr-4"
-                    src={`https://randomuser.me/api/portraits/men/${50 +
+                    src={`https://randomuser.me/api/portraits/men/${52 +
                       i}.jpg`}
                     alt="Avatar"
                   />

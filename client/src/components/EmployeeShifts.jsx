@@ -34,7 +34,7 @@ export default class EmployeeShifts extends PureComponent {
   renderShifts() {
     const { shifts, users } = this.props;
     if (!shifts || shifts.length === 0) {
-      return <p>No shifts</p>;
+      return <p className="px-4">No shifts</p>;
     }
     return (
       <div>
