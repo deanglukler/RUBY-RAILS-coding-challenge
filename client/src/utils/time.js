@@ -1,14 +1,15 @@
-import moment from 'moment'
+import moment from 'moment';
 
-export const getDate = ts => moment(ts * 1000).format("dddd, MMMM Do YYYY, h:mm a")
+export const getDate = ts =>
+  moment(ts * 1000).format('dddd, MMMM Do YYYY, h:mm a');
 
-export const getDay = ts => moment(ts * 1000).format("dddd, MMMM Do YYYY")
+export const getDay = ts => moment(ts * 1000).format('dddd, MMMM Do YYYY');
 
-export const getHour = ts => moment(ts * 1000).format("h:mm a")
+export const getHour = ts => moment(ts * 1000).format('h:mm a');
 
-export const length = (s, e) => `${(e - s) / 60} mins`
+export const length = (s, e) => `${Math.round(parseFloat((e - s) / 3600) * 10) / 10} hrs`;
 
-export const dateStrToSec = date => moment(date).unix()
+export const dateStrToSec = date => moment(date).unix();
 
-// will return the unix secs of beginning of date
-// export const flattenDateSecs = ts => moment(moment(ts * 1000).format('l')).unix()
+export const parseHourFloatBySecs = ts =>
+  Math.floor(parseFloat((ts / 3600) * 10)) / 10;

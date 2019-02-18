@@ -13,7 +13,7 @@ export default class Scheduler extends PureComponent {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
-    this.closeShiftDetails = this.closeShiftDetails.bind(this)
+    this.closeShiftDetails = this.closeShiftDetails.bind(this);
   }
 
   handleEdit(id) {
@@ -26,7 +26,7 @@ export default class Scheduler extends PureComponent {
   closeShiftDetails() {
     this.setState({
       shiftDetailsOpen: false,
-    })
+    });
   }
 
   renderShifts() {
@@ -67,12 +67,13 @@ export default class Scheduler extends PureComponent {
     return (
       <div>
         {this.renderShifts()}
-        <ShiftDetails
-          open={shiftDetailsOpen}
-          shift={shiftDetailsShift}
-          users={users}
-          onClose={this.closeShiftDetails}
-        />
+        {shiftDetailsOpen && (
+          <ShiftDetails
+            shift={shiftDetailsShift}
+            users={users}
+            onClose={this.closeShiftDetails}
+          />
+        )}
       </div>
     );
   }

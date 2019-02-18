@@ -33,11 +33,11 @@ module Api
     def update
       @shift = Shift.find(params[:id])
       if is_admin_who_created?
-        if shift.update_attributes(shift_params)
-          render json: { apiOk: true, msg: 'Shift Updated', data: shift },
+        if @shift.update_attributes(shift_params)
+          render json: { apiOk: true, msg: 'Shift Updated', data: @shift },
                  status: :ok
         else
-          render json: { apiOk: false, msg: 'Error Updating Shift', data: shift.errors },
+          render json: { apiOk: false, msg: 'Error Updating Shift', data: @shift.errors },
                  status: :unprocessable_entity
         end
       else

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/airbnb.css';
+import * as time from '../utils/time';
 
 class DatePicker extends PureComponent {
   constructor(props) {
@@ -10,38 +11,23 @@ class DatePicker extends PureComponent {
   }
 
   handleOnChange(date) {
-    this.props.onChange && this.props.onChange(date)
+    const ts = time.dateStrToSec(date[0]);
+    this.props.onChange && this.props.onChange(ts);
   }
 
   render() {
-    const {
-      label,
-      helperText,
-      className,
-      value,
-      onChange,
-      isRequired,
-      fullWidth,
-      ...props
-    } = this.props;
+    const { value, onChange, isRequired, noCalendar, ...props } = this.props;
     return (
-      <div {...props}>
-        {label && <label>{label}</label>}
-        <div>
-          <div>
-            <Flatpickr
-              options={{
-                clickOpens: true,
-                enableTime: true,
-                defaultDate: value * 1000,
-              }}
-              value={value * 1000}
-              onChange={this.handleOnChange}
-            />
-          </div>
-          {helperText && <span className="clr-subtext">Helper Text</span>}
-        </div>
-      </div>
+      <Flatpickr
+        options={{
+          noCalendar,
+          clickOpens: true,
+          enableTime: true,
+        }}
+        value={value * 1000}
+        onChange={this.handleOnChange}
+        {...props}
+      />
     );
   }
 }
