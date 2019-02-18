@@ -51,7 +51,7 @@ export default class Scheduler extends PureComponent {
     return (
       <div>
         <h4 className="mx-4">Shifts:</h4>
-        <div className="border mx-4">
+        <div className="mx-4">
           {shifts.map(({ employee_id, id, start, end }) => (
             <div
               key={id}

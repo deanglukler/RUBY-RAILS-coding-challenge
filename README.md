@@ -1,5 +1,9 @@
 # DoubleTime
 
+A simple scheduler 
+
+Visit the [demoo](https://lit-garden-97808.herokuapp.com/)
+
 ### Dependancies
 1. psql
 2. ruby-2.6.1
@@ -12,24 +16,19 @@
 3. rake db:init
 4. rails db:migrate && rails db:seed
 5. cd client && npm i
-6. start developing (either "rake start", or "npm run start:dev")
+6. cd .. && ... start developing (either "rake start", or "npm run start:dev")
 
+### screenshots
 
-### If I had more time..
-
-I would figure out the best way to namespace the api if 
-
-Reminder to update ruby before starting a project
-
-Don't return password_digest when queerying users
-
-Run project for development: rake start
-
-Test deployment (on local machine): rake start:production
+![screenshot](https://raw.githubusercontent.com/glueckler/doubletime/master/screenshots/dt1.png "screenshot 1")
+![screenshot](https://raw.githubusercontent.com/glueckler/doubletime/master/screenshots/dt2.png "screenshot 2")
+![screenshot](https://raw.githubusercontent.com/glueckler/doubletime/master/screenshots/dt3.png "screenshot 3")
 
 ### Boring Stuff
 
-* Ruby version: 2.6.1
+[mee](https://deanglueckler.com/)
+
+[my music](https://soundcloud.com/hisimagination/)
 
 
 
