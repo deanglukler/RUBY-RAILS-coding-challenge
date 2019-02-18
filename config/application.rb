@@ -38,10 +38,15 @@ module DoubleTime
     # this doesn't work on heroku?
     # config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths += %W[#{config.root}/lib]
+    # try using eager_load_paths for heroku
+    config.eager_load_paths += %W[#{config.root}/lib]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
 
     # to always require anything in the app/commands dir
     config.autoload_paths += %W[#{config.root}/app/commands]
+    config.eager_load_paths += %W[#{config.root}/app/commands]
     config.autoload_paths += Dir["#{config.root}/app/commands/**/"]
+    config.eager_load_paths += Dir["#{config.root}/app/commands/**/"]
   end
 end
