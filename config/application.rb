@@ -35,7 +35,10 @@ module DoubleTime
     config.api_only = true
 
     # for JWT the contents of the lib directory have to be included
-    config.autoload_paths << Rails.root.join('lib')
+    # this doesn't work on heroku?
+    # config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths += %W[#{config.root}/lib]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # to always require anything in the app/commands dir
     config.autoload_paths += %W[#{config.root}/app/commands]
