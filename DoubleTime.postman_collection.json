@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "28fdb1f2-9a01-4b8a-bc4c-1ba160805a07",
+		"name": "DoubleTime",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"tg@doubletime.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3001/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shift Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NTA0NTgxNTZ9.egKdV2vovzMQDsyFRAYrWTD6CXOzflkDgk8W3uG9yzQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"employee_id\": 4,\n\t\"start\": \"12345\",\n\t\"end\": \"12348\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/shifts",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"shifts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shift Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NTA0NjMzNDZ9.3fbzYITgsZtUovy3EWv2SzGwHvycDyuxXOOI1nTW7sA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"employee_id\": \"3\",\n\t\"start\": \"12345\",\n\t\"end\": \"55555\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/shifts/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"shifts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shifts Index",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE1NTA0NjA1MzJ9.Akb4LJQyHspSFfZ0s6N4L_SQ0CXi7U8bYM6aYpVCKI8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3001/api/shifts",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"shifts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shitf Update Employee",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE1NTA0NjM4NDh9.crGgci3XckeuTovp1Xfcplkj5P_UZ6n3XTbxFBLH2rY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"confirmed\": true,\n\t\"notes\": \"take notes\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/shifts/1/employee/",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"shifts",
+						"1",
+						"employee",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
